@@ -10,11 +10,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $filenameCountries = 'countries.txt';
             $contentCountries = file_get_contents($filenameCountries);
             // Check if the country already exists in the file
-            if (!strpos($contentCountries, $country)) {
+            if (strpos($contentCountries, $country)) {
                 file_put_contents($filenameCountries, $country . "\n", FILE_APPEND);
+            } else {
+                // If the country already exists in the file, show an error message
+                echo "<p style='color: red'>The country already exists in the file!</p>";
             }
+        } else {
+            // If the country does not exist in the dictionary, show an error message
+            echo "<p style='color: red'>Please enter a valid country name!</p>";
         }
+    } else {
+        // If the country is empty, show an error message
+        echo "<p style='color: red'>Please enter a country name!</p>";
     }
+
 }
 ?>
 
